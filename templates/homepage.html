@@ -1,0 +1,15 @@
+
+<h1> Welcome {{ session.username }}!</h1>
+
+<p>Reseptit:</p>
+<p>Lisää resepti</p>
+<form action="/addrecipe" method="POST">
+    Kuvaus: <input type="text" name="title">
+    <br>
+    Ohje:
+    <br>
+    <textarea rows="8" cols="15" name="instructions"></textarea>
+    
+    <br>
+    <input type="submit" value="Tallenna"
+</form>
