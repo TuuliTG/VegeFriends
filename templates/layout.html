@@ -1,0 +1,12 @@
+<title>VegeFriends - {% block title %}{% endblock %} </title>
+<h1>VegeFriends</h1>
+<a href="/">Etusivu</a>
+{% if session.username %}
+<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<a href="/">Kirjaudu sisään</a>
+<a href="/signup">Luo uusi tunnus</a> 
+{% endif %}
+<hr>
+{% block content %}{% endblock %}
+<hr>

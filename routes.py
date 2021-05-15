@@ -1,6 +1,7 @@
 from app import app
 from flask import redirect, render_template, request, session
 import users
+import recipes
 
 
 @app.route("/")
@@ -24,7 +25,8 @@ def signup():
 
 @app.route("/homepage")
 def homepage():
-    return render_template("homepage.html")
+    list = recipes.get_all_owned_by_user(users.user_id())
+    return render_template("homepage.html", recipes=list)
 
 @app.route("/logout")
 def logout():
@@ -40,11 +42,18 @@ def new_user():
     else:
         return render_template("error.html",message="Rekisteröinti ei onnistunut")
 
-    @app.route("/addrecipe", methods=["POST"])
-    def add_recipe():
-        title = request.form["title"]
-        description = request.form["description"]
-        sql = "INSERT INTO recipes (title, description) VALUES (:title, :description)"
-        db.session.execute(sql, {"title":title,"description":description})
-        db.session.commit()
+@app.route("/addrecipe", methods=["POST"])
+def add_recipe():
+    
+    title = request.form["title"]
+    instructions = request.form["instructions"]
+    uid = users.user_id()
+    if recipes.create(title, instructions,uid):
         return redirect("/homepage")
+    else:
+        return render_template("error.html",message="Reseptin lisääminen ei onnistunut")
+
+@app.route("/recipes/<id>")
+def show_recipe(id):
+    recipe = recipes.get_recipe_by_id(id)
+    return render_template("recipe.html", recipe=recipe)

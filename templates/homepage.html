@@ -1,7 +1,13 @@
-
-<h1> Welcome {{ session.username }}!</h1>
-
+{% extends "layout.html" %}
+{% block title %}Homepage{% endblock %}
+{% block content %}
+<h2>Welcome {{ session.username }}</h2>
 <p>Reseptit:</p>
+<ul>
+{% for recipe in recipes %}
+<li><a href="/recipes/{{recipe[0]}}">{{ recipe[1] }}</a></li>
+{% endfor %}
+</ul>
 <p>Lisää resepti</p>
 <form action="/addrecipe" method="POST">
     Kuvaus: <input type="text" name="title">
@@ -9,7 +15,8 @@
     Ohje:
     <br>
     <textarea rows="8" cols="15" name="instructions"></textarea>
-    
+
     <br>
-    <input type="submit" value="Tallenna"
+    <input type="submit" value="Tallenna">
 </form>
+{% endblock %}

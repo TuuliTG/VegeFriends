@@ -1,5 +1,7 @@
-Luo uusi tunnus:
-<br>
+{% extends "layout.html" %}
+{% block title %} Sign up {% endblock %}
+{% block content %}
+<h2>Luo uusi tunnus</h2>
 <form action="/newuser" method="POST">
 Tunnus:<input type="text" name="username">
 <p>
@@ -7,3 +9,4 @@ Salasana: <input type="password" name="password">
 <p>
 <input type="submit" value="Luo tunnus">
 </form>
+{% endblock %}
