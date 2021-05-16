@@ -17,8 +17,6 @@ def login():
     else:
         return render_template("error.html", message="Väärä tunnus tai salasana")
     
-    
-
 @app.route("/signup")
 def signup():
     return render_template("signup.html")

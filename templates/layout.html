@@ -1,14 +1,16 @@
 <title>VegeFriends - {% block title %}{% endblock %} </title>
+<div class="topnav">
+    <a href="/">Etusivu</a>
+    {% if session.username %}
+    <a href="/homepage">Oma sivu</a>
+    <a href="/recipes?search=all">Hae reseptejä</a>
+    <a href="/logout">Kirjaudu ulos</a>
+    {% else %}
+    <a href="/">Kirjaudu sisään</a>
+    <a href="/signup">Luo uusi tunnus</a> 
+    {% endif %}
+</div>
 <h1>VegeFriends</h1>
-<a href="/">Etusivu</a>
-{% if session.username %}
-<a href="/homepage">Oma sivu</a>
-<a href="/logout">Kirjaudu ulos</a>
-<a href="/recipes?search=all">Hae reseptejä</a>
-{% else %}
-<a href="/">Kirjaudu sisään</a>
-<a href="/signup">Luo uusi tunnus</a> 
-{% endif %}
 <hr>
 {% block content %}{% endblock %}
 <hr>
