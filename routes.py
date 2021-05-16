@@ -34,7 +34,13 @@ def logout():
 @app.route("/newuser", methods=["POST"])
 def new_user():
     username = request.form["username"]
+    username = username.strip()
     password = request.form["password"]
+    password = password.strip()
+    if len(username) > 20 or len(username) < 4:
+        return render_template("error.html",message="Käyttäjänimen täytyy olla vähintään 4 ja enintään 20 merkkiä pitkä")
+    if len(password) < 6 or len(password) > 20:
+        return render_template("error.html",message="Salasanan pitää olla vähintään 6 ja enintään 20 merkkiä pitkä") 
     if users.register(username,password):
         return redirect("/")
     else:
