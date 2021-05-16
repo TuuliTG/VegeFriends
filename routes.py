@@ -2,6 +2,7 @@ from app import app
 from flask import redirect, render_template, request, session
 import users
 import recipes
+import security
 
 
 @app.route("/")
@@ -34,15 +35,13 @@ def logout():
 @app.route("/newuser", methods=["POST"])
 def new_user():
     username = request.form["username"]
-    username = username.strip()
     password = request.form["password"]
-    password = password.strip()
-    if len(username) > 20 or len(username) < 4:
+    if not security.is_valid(username, 4,6):
         return render_template("error.html",message="Käyttäjänimen täytyy olla vähintään 4 ja enintään 20 merkkiä pitkä")
-    if len(password) < 6 or len(password) > 20:
+    if not security.is_valid(password, 6, 20):
         return render_template("error.html",message="Salasanan pitää olla vähintään 6 ja enintään 20 merkkiä pitkä") 
     if users.register(username,password):
-        return redirect("/")
+        return redirect("/homepage")
     else:
         return render_template("error.html",message="Rekisteröinti ei onnistunut")
 
@@ -50,6 +49,8 @@ def new_user():
 def add_recipe():
     
     title = request.form["title"]
+    if security.is_valid(title, 4, 25):
+        return render_template("error.html", message="Otsikon pituus täytyy olla vähintään 4 ja enintään 25 merkkiä pitkä")
     instructions = request.form["instructions"]
     uid = users.user_id()
     if recipes.create(title, instructions,uid):

@@ -13,4 +13,6 @@ Toiminnot:
 * Käyttäjä voi poistaa itse lisäämiään reseptejä
 * Käyttäjä voi tallentaa muiden lisäämiä reseptejä suosikkeihin
 * Käyttäjä voi kommentoida reseptejä
+* Admin-käyttäjä voi poistaa käyttäjätilejä
+* Admin-käyttäjä voi poistaa epäasiallisia reseptejä tai kommentteja
 * 
