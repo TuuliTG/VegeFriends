@@ -53,7 +53,25 @@ def add_recipe():
     else:
         return render_template("error.html",message="Reseptin lisääminen ei onnistunut")
 
-@app.route("/recipes/<id>")
+@app.route("/recipe/<id>")
 def show_recipe(id):
     recipe = recipes.get_recipe_by_id(id)
     return render_template("recipe.html", recipe=recipe)
+
+
+@app.route("/search",methods=["POST"])
+def search():
+    text = request.form["search"]
+    
+    return redirect("recipes"+"?search="+text)
+
+@app.route("/recipes")
+def show_all_recipes():
+    
+    search = request.args.get("search")
+    if search == "all":
+        
+        list = recipes.get_all()
+    else:
+        list = recipes.search_by_text(search)
+    return render_template("recipes.html", recipes=list)
