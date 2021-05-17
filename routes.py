@@ -80,3 +80,8 @@ def show_all_recipes():
     else:
         list = recipes.search_by_text(search)
     return render_template("recipes.html", recipes=list)
+
+@app.route("/delete/<id>",methods=["POST"])
+def delete_recipe(id):
+    recipes.delete_by_id(id)
+    return redirect("/homepage")
