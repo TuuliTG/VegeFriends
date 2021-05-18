@@ -36,11 +36,12 @@ def logout():
 def new_user():
     username = request.form["username"]
     password = request.form["password"]
-    if not security.is_valid(username, 4,6):
+    
+    if not security.is_valid(username, 4,20):
         return render_template("error.html",message="Käyttäjänimen täytyy olla vähintään 4 ja enintään 20 merkkiä pitkä")
     if not security.is_valid(password, 6, 20):
         return render_template("error.html",message="Salasanan pitää olla vähintään 6 ja enintään 20 merkkiä pitkä") 
-    if users.register(username,password):
+    if users.register(username,password,0):
         return redirect("/homepage")
     else:
         return render_template("error.html",message="Rekisteröinti ei onnistunut")
@@ -49,7 +50,7 @@ def new_user():
 def add_recipe():
     
     title = request.form["title"]
-    if security.is_valid(title, 4, 25):
+    if not security.is_valid(title, 4, 25):
         return render_template("error.html", message="Otsikon pituus täytyy olla vähintään 4 ja enintään 25 merkkiä pitkä")
     instructions = request.form["instructions"]
     uid = users.user_id()
@@ -85,3 +86,15 @@ def show_all_recipes():
 def delete_recipe(id):
     recipes.delete_by_id(id)
     return redirect("/homepage")
+
+
+@app.route("/admin")
+def admin_page():
+    users.require_role(1)
+    list = users.get_all_users()
+    return render_template("admin.html", users=list)
+
+@app.route("/deleteuser/<id>", methods=["POST"])
+def delete_user(id):
+    users.delete_user(id)
+    return redirect("/admin")

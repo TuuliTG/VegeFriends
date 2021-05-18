@@ -7,7 +7,7 @@ def get_all_owned_by_user(user_id):
     return result.fetchall()
 
 def get_all():
-    sql = "SELECT R.id, R.title FROM recipes R"
+    sql = "SELECT R.id, R.title, R.user_id FROM recipes R"
     result = db.session.execute(sql)
     return result.fetchall()
 
