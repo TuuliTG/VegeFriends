@@ -33,7 +33,11 @@ def register(username, password, role):
         db.session.commit()
     except:
         return False
-    return login(username,password)
+    if role == 0:
+        return login(username,password)
+    if role == 1:
+        return True
+ 
 
 def user_id():
     return session.get("user_id",0)
@@ -48,6 +52,6 @@ def require_role(role):
         abort(403)
 
 def delete_user(id):
-    sql = "DELETE FROM users USING recipes WHERE users.id=:id AND recipes.user_id=:id"
+    sql = "DELETE FROM users WHERE id=:id"
     result = db.session.execute(sql, {"id":id})
     db.session.commit()

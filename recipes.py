@@ -23,9 +23,14 @@ def create(title, instructions, writer_id):
 
 def get_recipe_by_id(id):
     
-    sql = "SELECT R.title, R.instructions, U.username FROM recipes R, users U WHERE R.id=:id AND R.user_id = U.id"
+    sql = "SELECT R.id, R.title, R.instructions, U.username, U.id FROM recipes R, users U WHERE R.id=:id AND R.user_id = U.id"
     result = db.session.execute(sql, {"id":id})
     return result.fetchone()
+
+def get_feedback_by_recipe_id(id):
+    sql = "SELECT F.skill_level, F.quality, F.comment, F.given_by FROM feedback F WHERE recipe_id=:id"
+    result = db.session.execute(sql, {"id":id})
+    return result.fetchall()
 
 def search_by_text(text):
     

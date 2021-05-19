@@ -3,6 +3,7 @@ from flask import redirect, render_template, request, session
 import users
 import recipes
 import security
+import feedback
 
 
 @app.route("/")
@@ -62,7 +63,8 @@ def add_recipe():
 @app.route("/recipe/<id>")
 def show_recipe(id):
     recipe = recipes.get_recipe_by_id(id)
-    return render_template("recipe.html", recipe=recipe)
+    feedback = recipes.get_feedback_by_recipe_id(id)
+    return render_template("recipe.html", recipe=recipe, feedback=feedback)
 
 
 @app.route("/search",methods=["POST"])
@@ -98,3 +100,23 @@ def admin_page():
 def delete_user(id):
     users.delete_user(id)
     return redirect("/admin")
+
+@app.route("/feedback/<id>",methods=["POST"])
+def give_feedback(id):
+    skill_level = int(request.form["skill_level"])
+    quality = int(request.form["quality"])
+    comment = request.form["comment"]
+    given_by = users.user_id()
+    feedback.add_feedback(skill_level,quality,comment,given_by,id)
+    return redirect("/recipe/"+id)
+
+@app.route("/create_admin")
+def show_create_admin_page():
+    return render_template("create_admin.html")
+
+@app.route("/newadmin",methods=["POST"])
+def new_admin():
+    username = request.form["username"]
+    password = request.form["password"]
+    users.register(username,password,1)
+    return redirect("/")
