@@ -5,9 +5,13 @@
     <a href="/homepage">Oma sivu</a>
     <a href="/recipes?search=all">Hae reseptejä</a>
     <a href="/logout">Kirjaudu ulos</a>
+    
     {% else %}
     <a href="/">Kirjaudu sisään</a>
     <a href="/signup">Luo uusi tunnus</a> 
+    {% endif %}
+    {% if session.user_role == 1%}
+    <a href="/admin">Admin</a>
     {% endif %}
 </div>
 <h1>VegeFriends</h1>
