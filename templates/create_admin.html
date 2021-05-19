@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %} Create admin account {% endblock %}
+{% block content %}
+<h2>Luo uusi admin-tunnus</h2>
+<form action="/newadmin" method="POST" onsubmit="return check(this)">
+Tunnus:<input type="text" name="username">
+<p>
+Salasana: <input type="password" name="password">
+<p>
+<input type="submit" value="Luo tunnus">
+</form>
+
+<script>
+    
+    function check(form) {
+        var username = form.username.value;
+        username = username.trim();
+        var password = form.password.value;
+        password = password.trim();
+        if (username.length < 4 || username.length > 20) {
+            alert("Käyttäjänimen pitää olla vähintään 4 ja enintään 20 merkkiä pitkä");
+            return false;
+        }
+        if (password.length < 6 || password.length > 20) {
+            alert("Salasanan pitää olla vähintään 6 ja enintään 20 merkkiä pitkä");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+{% endblock %}
