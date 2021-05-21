@@ -53,6 +53,9 @@
 {% endif %}
 <hr>
 <p>Käyttäjien antamat palautteet:</p>
+{% if not feedback %}
+<p>ei vielä palautteita</p>
+{% else %}
 <p>Keskimääräinen vaikeustaso:{{ feedback[0].skill_level }}</p>
 <p>Käyttäjät pitivät ruuasta keskimäärin: {{ feedback[0].quality }}</p>
 <p>Kommentit:</p>
@@ -61,6 +64,7 @@
     <li>{{ fb.comment }}</li> 
 {% endfor %}   
 </ul>
+{% endif %}
 
 
 {% endblock %} 
