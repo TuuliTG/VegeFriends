@@ -63,8 +63,8 @@ def add_recipe():
 @app.route("/recipe/<id>")
 def show_recipe(id):
     recipe = recipes.get_recipe_by_id(id)
-    feedback = recipes.get_feedback_by_recipe_id(id)
-    return render_template("recipe.html", recipe=recipe, feedback=feedback)
+    feedbacks = feedback.get_feedback_by_recipe_id(id)
+    return render_template("recipe.html", recipe=recipe, feedback=feedbacks)
 
 
 @app.route("/search",methods=["POST"])

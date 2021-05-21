@@ -27,10 +27,7 @@ def get_recipe_by_id(id):
     result = db.session.execute(sql, {"id":id})
     return result.fetchone()
 
-def get_feedback_by_recipe_id(id):
-    sql = "SELECT F.skill_level, F.quality, F.comment, F.given_by FROM feedback F WHERE recipe_id=:id"
-    result = db.session.execute(sql, {"id":id})
-    return result.fetchall()
+
 
 def search_by_text(text):
     

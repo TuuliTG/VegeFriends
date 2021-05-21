@@ -52,6 +52,9 @@
 </form>
 {% endif %}
 <hr>
+<p>Käyttäjien antamat palautteet:</p>
+<p>Keskimääräinen vaikeustaso:{{ feedback[0].skill_level }}</p>
+<p>Käyttäjät pitivät ruuasta keskimäärin: {{ feedback[0].quality }}</p>
 <p>Kommentit:</p>
 <ul>
 {% for fb in feedback %}
