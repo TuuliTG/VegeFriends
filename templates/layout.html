@@ -16,5 +16,7 @@
 </div>
 <h1>VegeFriends</h1>
 <hr>
+{% if session.username %}
 {% block content %}{% endblock %}
+{% endif %}
 <hr>

@@ -24,6 +24,8 @@ def login(username, password):
 
 def logout():
     del session["user_id"]
+    del session["username"]
+    del session["user_role"]
 
 def register(username, password, role):
     hash_value = generate_password_hash(password)
@@ -47,9 +49,11 @@ def get_all_users():
     result = db.session.execute(sql)
     return result.fetchall()
 
-def require_role(role):
+def is_required_role(role):
     if role > session.get("user_role", 0):
-        abort(403)
+        return False
+    else:
+        return True
 
 def delete_user(id):
     sql = "DELETE FROM users WHERE id=:id"

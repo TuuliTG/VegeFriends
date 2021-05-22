@@ -30,7 +30,7 @@ def homepage():
 
 @app.route("/logout")
 def logout():
-    del session["username"]
+    users.logout()
     return redirect("/")
 
 @app.route("/newuser", methods=["POST"])
@@ -92,9 +92,11 @@ def delete_recipe(id):
 
 @app.route("/admin")
 def admin_page():
-    users.require_role(1)
-    list = users.get_all_users()
-    return render_template("admin.html", users=list)
+    if users.is_required_role(1):
+        list = users.get_all_users()
+        return render_template("admin.html", users=list)
+    else:
+        return render_template("error.html",message="Sinulla ei ole oikeuksia tälle sivulle")
 
 @app.route("/deleteuser/<id>", methods=["POST"])
 def delete_user(id):

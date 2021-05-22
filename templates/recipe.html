@@ -63,13 +63,24 @@
 <p>Keskimääräinen vaikeustaso:{{ feedback[0].skill_level }}</p>
 <p>Käyttäjät pitivät ruuasta keskimäärin: {{ feedback[0].quality }}</p>
 <p>Kommentit:</p>
-<ul>
-{% for fb in feedback %}
-{% if not fb.comment == none %}
-    <li>{{ fb.comment }}</li> 
-{% endif %}
-{% endfor %}   
-</ul>
+<table>
+    <thead>
+        <tr>
+            <th>Kommentit</th>
+            <th>Käyttäjältä:</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fb in feedback %}
+        {% if not fb.comment == none %} 
+        <tr>
+            <td>{{ fb.comment }} </td>
+            <td>{{ fb.written_by }}</td>
+        </tr>
+    </tbody>
+    {% endif %}
+    {% endfor %}
+</table>
 {% endif %}
 
 <script>
