@@ -1,22 +1,36 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/main.css?version=2">
 <title>VegeFriends - {% block title %}{% endblock %} </title>
-<div class="topnav">
-    <a href="/">Etusivu</a>
-    {% if session.username %}
-    <a href="/homepage">Oma sivu</a>
-    <a href="/recipes?search=all">Hae reseptejä</a>
-    <a href="/logout">Kirjaudu ulos</a>
+<div class="container-fluid">
+    <div>
+        <nav class="navbar">
+            <a href="/"class="text-white">Etusivu</a>
+            {% if session.username %}
+            <a href="/homepage" class="text-white">Oma sivu</a>
+            <a href="/recipes?search=all" class="text-white">Hae reseptejä</a>
+            <a href="/logout" class="text-white">Kirjaudu ulos</a>
+            
+            {% else %}
+            <a href="/" class="text-white">Kirjaudu sisään</a>
+            <a href="/signup" class="text-white">Luo uusi tunnus</a> 
+            {% endif %}
+            {% if session.user_role == 1%}
+            <a href="/admin" class="text-white">Admin</a>
+            {% endif %}
+        </nav>
+    </div>
+    <div class="card text-center">
+        <div class="card-body">
+            <h1 class="card-title">VegeFriends</h1>
+        </div>
+        
+    </div>
     
-    {% else %}
-    <a href="/">Kirjaudu sisään</a>
-    <a href="/signup">Luo uusi tunnus</a> 
-    {% endif %}
-    {% if session.user_role == 1%}
-    <a href="/admin">Admin</a>
-    {% endif %}
+   
+    
+    {% block content %}{% endblock %}
+    
+   
 </div>
-<h1>VegeFriends</h1>
-<hr>
-{% if session.username %}
-{% block content %}{% endblock %}
-{% endif %}
-<hr>
+

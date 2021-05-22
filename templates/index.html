@@ -2,12 +2,21 @@
 {% block title %}Etusivu{% endblock %}
 {% block content %}
 {% if not session.username %}
-<form action="/login" method="POST">
-Tunnus: <input type="text" name="username">
-<p>
-Salasana: <input type="password" name="password">
-<p>
-<input type="submit" value="Kirjaudu">
-</form>
-{% endif %}
+<div class="card w-50">
+    <form action="/login" method="POST">
+        <div class="row px-3"> <label class="mb-1">
+            <h6 class="mr-2 text-sm">Käyttäjätunnus</h6>
+            </label> <input class="mb-4" type="text" name="username" placeholder="Käyttäjätunnus"> </div>
+        <div class="row px-3"> <label class="mb-1">
+            <h6 class="mr-2 text-sm">Salasana</h6>
+            </label> <input type="password" name="password" placeholder="Salasana"> 
+        </div>
+        <div>
+            <button type="submit" value="Kirjaudu" class="btn btn-primary mt-3 text-center">Kirjaudu</button>
+        </div>
+    
+    </form>
+    {% endif %}
+</div>
+
 {% endblock %}

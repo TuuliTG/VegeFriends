@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Homepage{% endblock %}
 {% block content %}
+{% if session.username %}
 <h2>Welcome {{ session.username }}</h2>
 
 <table>
@@ -32,4 +33,5 @@
     <br>
     <input type="submit" value="Tallenna">
 </form>
+{% endif %}
 {% endblock %}

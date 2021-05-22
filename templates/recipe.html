@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Reseptisivu {% endblock %}
 {% block content %}
+{% if session.username %}
 <table>
     <thead>
         <tr>
@@ -118,7 +119,7 @@
     
     
 </script>
-
+{% endif %}
 {% endblock %} 
 
 

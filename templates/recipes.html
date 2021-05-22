@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Reseptit{% endblock %}
 {% block content %}
+{% if session.username %}
 <h2>Hae reseptejä</h2>
 <form action="/search" method="POST">
     <input type="text" name="search">
@@ -12,4 +13,5 @@
     <li><a href="/recipe/{{recipe[0]}}">{{ recipe[1] }}</a></li>
 {% endfor %}
 </ul>
+{% endif %}
 {% endblock %} 
