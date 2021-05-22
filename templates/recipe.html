@@ -20,9 +20,9 @@
 {% if session.user_id != recipe[4]%}
 <hr>
 <h4>Anna palautetta:</h4>
-<form action="/feedback/{{recipe[0]}}" method="POST">
+<form action="/feedback/{{recipe[0]}}" method="POST" >
     <p>Vaikeustaso:</p>
-    <input type="radio" value="1" name="skill_level">
+    <input type="radio" value="1" id=skill_level name="skill_level">
     <label for="1">1</label>
     <input type="radio" value="2" name="skill_level">
     <label for="1">2</label>
@@ -48,7 +48,7 @@
     <p>Kommentoi:</p>
     <textarea rows="8" cols="30" name="comment"></textarea>
     <br>
-    <input type="submit" value="Lähetä">
+    <input type="submit" id="btn" value="Lähetä">
 </form>
 {% endif %}
 <hr>
@@ -61,11 +61,48 @@
 <p>Kommentit:</p>
 <ul>
 {% for fb in feedback %}
+{% if fb.comment|length %}
     <li>{{ fb.comment }}</li> 
+{% endif %}
 {% endfor %}   
 </ul>
 {% endif %}
 
+<script>
+
+    const btn = document.querySelector('#btn');
+    btn.onclick = function () {
+        const skills = document.querySelectorAll('input[name="skill_level"]');
+        const qualitys = document.querySelectorAll('input[name="quality"]');
+        let selectedValue_skill;
+        let sel_qual;
+        for (const skill of skills) {
+            if (skill.checked) {
+                selectedValue_skill = skill.value;
+                
+            }
+        }
+        if (selectedValue_skill == null) {
+            alert("valitse vaikeustaso")
+            return false;
+        }
+       
+        for (const quality of qualitys) {
+            if (quality.checked) {
+                sel_qual = quality.value;
+                
+            }
+        }
+        if (sel_qual == null) {
+            alert("Valitse laatu")
+            return false;
+        }
+        
+        return true;
+    } 
+    
+    
+</script>
 
 {% endblock %} 
 
