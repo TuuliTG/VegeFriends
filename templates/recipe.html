@@ -16,7 +16,11 @@
     </tbody>
 </table>
 <h4>Ohjeet:</h4>
-<p>{{ recipe.instructions }} </p>
+<p>
+{% for line in recipe[2].splitlines() %}
+{{line}}<br>
+{% endfor %}
+</p>
 {% if session.user_id != recipe[4]%}
 <hr>
 <h4>Anna palautetta:</h4>
@@ -61,7 +65,7 @@
 <p>Kommentit:</p>
 <ul>
 {% for fb in feedback %}
-{% if fb.comment|length %}
+{% if not fb.comment == none %}
     <li>{{ fb.comment }}</li> 
 {% endif %}
 {% endfor %}   

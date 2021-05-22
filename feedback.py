@@ -16,4 +16,5 @@ def get_feedback_by_recipe_id(id):
         "(SELECT ROUND(AVG(quality),2) FROM feedback WHERE recipe_id=:id) AS quality"\
         " FROM feedback WHERE recipe_id=:id"
     result = db.session.execute(sql, {"id":id})
+    
     return result.fetchall()

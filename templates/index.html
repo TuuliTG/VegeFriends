@@ -1,9 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Etusivu{% endblock %}
 {% block content %}
-{% if session.username %}
-<a href="/homepage">Oma sivu</a>
-{% else %}
+{% if not session.username %}
 <form action="/login" method="POST">
 Tunnus: <input type="text" name="username">
 <p>
