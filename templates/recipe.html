@@ -2,86 +2,105 @@
 {% block title %}Reseptisivu {% endblock %}
 {% block content %}
 {% if session.username %}
-<table>
-    <thead>
-        <tr>
-            <th>Ruoka:</th>
-            <th>Luonut:</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{ recipe[1] }}</td>
-            <td> {{ recipe[3] }}</td>
-        </tr>
-    </tbody>
-</table>
-<h4>Ohjeet:</h4>
-<p>
-{% for line in recipe[2].splitlines() %}
-{{line}}<br>
-{% endfor %}
-</p>
-{% if session.user_id != recipe[4]%}
+<div class="container-sm">
+    <div class="row mt-3">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <h3>{{ recipe[1] }}</h3>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <h5>Luonut: {{ recipe[3] }}</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <h4>Ohjeet:</h4>
+            <p>
+            {% for line in recipe[2].splitlines() %}
+            {{line}}<br>
+            {% endfor %}
+            </p>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    
+    <hr>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-5">
+            {% if session.user_id != recipe[4]%}
+            <h4>Anna palautetta:</h4>
+            <form action="/feedback/{{recipe[0]}}" method="POST" >
+                <p>Vaikeustaso:</p>
+                <input type="radio" value="1" id=skill_level name="skill_level">
+                <label for="1">1</label>
+                <input type="radio" value="2" name="skill_level">
+                <label for="1">2</label>
+                <input type="radio" value="3" name="skill_level">
+                <label for="1">3</label>
+                <input type="radio" value="4" name="skill_level">
+                <label for="1">4</label>
+                <input type="radio" value="5" name="skill_level">
+                <label for="1">5</label>
+                <br>
+                <p>Kuinka hyvää ruoka oli?</p>
+                <input type="radio" value="1" name="quality">
+                <label for="1">1</label>
+                <input type="radio" value="2" name="quality">
+                <label for="1">2</label>
+                <input type="radio" value="3" name="quality">
+                <label for="1">3</label>
+                <input type="radio" value="4" name="quality">
+                <label for="1">4</label>
+                <input type="radio" value="5" name="quality">
+                <label for="1">5</label>
+                <br>
+                <p>Kommentoi:</p>
+                <textarea rows="8" cols="30" name="comment"></textarea>
+                <br>
+                <input type="submit" id="btn" value="Lähetä">
+            </form>
+            {% endif %}
+        </div>
+        <div class="col-sm-4">
+            <h5>Käyttäjien antamat palautteet:</h5>
+            {% if not feedback %}
+            <p>ei vielä palautteita</p>
+            {% else %}
+            <p>Keskimääräinen vaikeustaso:{{ feedback[0].skill_level }}</p>
+            <p>Käyttäjät pitivät ruuasta keskimäärin: {{ feedback[0].quality }}</p>
+            <p>Kommentit:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kommentit</th>
+                        <th>Käyttäjältä:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fb in feedback %}
+                    {% if not fb.comment == none %} 
+                    <tr>
+                        <td>{{ fb.comment }} </td>
+                        <td>{{ fb.written_by }}</td>
+                    </tr>
+                </tbody>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+        
+    </div>
+</div>
+
+
 <hr>
-<h4>Anna palautetta:</h4>
-<form action="/feedback/{{recipe[0]}}" method="POST" >
-    <p>Vaikeustaso:</p>
-    <input type="radio" value="1" id=skill_level name="skill_level">
-    <label for="1">1</label>
-    <input type="radio" value="2" name="skill_level">
-    <label for="1">2</label>
-    <input type="radio" value="3" name="skill_level">
-    <label for="1">3</label>
-    <input type="radio" value="4" name="skill_level">
-    <label for="1">4</label>
-    <input type="radio" value="5" name="skill_level">
-    <label for="1">5</label>
-    <br>
-    <p>Kuinka hyvää ruoka oli?</p>
-    <input type="radio" value="1" name="quality">
-    <label for="1">1</label>
-    <input type="radio" value="2" name="quality">
-    <label for="1">2</label>
-    <input type="radio" value="3" name="quality">
-    <label for="1">3</label>
-    <input type="radio" value="4" name="quality">
-    <label for="1">4</label>
-    <input type="radio" value="5" name="quality">
-    <label for="1">5</label>
-    <br>
-    <p>Kommentoi:</p>
-    <textarea rows="8" cols="30" name="comment"></textarea>
-    <br>
-    <input type="submit" id="btn" value="Lähetä">
-</form>
-{% endif %}
-<hr>
-<p>Käyttäjien antamat palautteet:</p>
-{% if not feedback %}
-<p>ei vielä palautteita</p>
-{% else %}
-<p>Keskimääräinen vaikeustaso:{{ feedback[0].skill_level }}</p>
-<p>Käyttäjät pitivät ruuasta keskimäärin: {{ feedback[0].quality }}</p>
-<p>Kommentit:</p>
-<table>
-    <thead>
-        <tr>
-            <th>Kommentit</th>
-            <th>Käyttäjältä:</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for fb in feedback %}
-        {% if not fb.comment == none %} 
-        <tr>
-            <td>{{ fb.comment }} </td>
-            <td>{{ fb.written_by }}</td>
-        </tr>
-    </tbody>
-    {% endif %}
-    {% endfor %}
-</table>
+
 {% endif %}
 
 <script>
