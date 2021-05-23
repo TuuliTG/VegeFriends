@@ -2,8 +2,8 @@
 {% block title %}Etusivu{% endblock %}
 {% block content %}
 {% if not session.username %}
-<div class="mx-auto">
-    <div class="max-auto card w-25 mt-5 backround">
+<div class="col-sm-5">
+    <div class="max-auto card mt-5 background">
         <form action="/login" method="POST">
             <div> 
                  <input class="form-control mb-2" type="text" name="username" id="username" placeholder="Käyttäjätunnus"> 
