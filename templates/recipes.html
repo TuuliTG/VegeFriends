@@ -2,16 +2,24 @@
 {% block title %}Reseptit{% endblock %}
 {% block content %}
 {% if session.username %}
-<h2>Hae reseptejä</h2>
-<form action="/search" method="POST">
-    <input type="text" name="search">
-    <input type="submit" value="Hae">
-</form>
-<br>
-<ul>
-{% for recipe in recipes %}
-    <li><a href="/recipe/{{recipe[0]}}">{{ recipe[1] }}</a></li>
-{% endfor %}
-</ul>
+<div class="row">
+    <div class="col align-self-center">
+        <h2>Hae reseptejä</h2>
+        <form action="/search" method="POST">
+            <input type="text" name="search">
+            <button type="submit" class="btn btn-default"><span class="fa fa-search"></span></button>
+        </form>
+        <br>
+        <ul>
+        {% for recipe in recipes %}
+            <li><a href="/recipe/{{recipe[0]}}">{{ recipe[1] }}</a></li>
+        {% endfor %}
+        </ul>
+       
+    
+    </div>
+</div>
+
 {% endif %}
-{% endblock %} 
+{% endblock %}
+ 
