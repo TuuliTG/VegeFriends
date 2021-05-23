@@ -33,7 +33,8 @@ def register(username, password, role):
         sql = "INSERT INTO users (username, password, role) VALUES (:username,:password,:role)"
         db.session.execute(sql, {"username":username,"password":hash_value,"role":role})
         db.session.commit()
-    except:
+    except BaseException as e:
+        print("Virhe käyttäjää luodessa, " + str(e))
         return False
     if role == 0:
         return login(username,password)
