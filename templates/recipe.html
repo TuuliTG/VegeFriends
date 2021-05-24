@@ -8,13 +8,17 @@
         <div class="col-sm-6">
             <h3>{{ recipe[1] }}</h3>
         </div>
-        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+            
+                
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
             <h5>Luonut: {{ recipe[3] }}</h5>
         </div>
+        <div class="col-sm-3"></div>
     </div>
     <div class="row">
         <div class="col-sm-3"></div>
@@ -26,7 +30,17 @@
             {% endfor %}
             </p>
         </div>
-        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+            <img src="/image/{{recipe[0]}}" class="img-fluid">
+            <br>
+            {% if session.user_id == recipe[4] %}
+            <form action="/send_image/{{recipe[0]}}" method="POST" enctype="multipart/form-data">
+                File: <input type="file" name="file">
+                <p>
+                <input type="submit" value="Lähetä">
+            </form>
+            {% endif %}
+        </div>
     </div>
     
     <hr>

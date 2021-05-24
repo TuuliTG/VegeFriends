@@ -5,3 +5,5 @@ CREATE TABLE recipes (id SERIAL PRIMARY KEY, title TEXT, instructions TEXT, user
 CREATE TABLE feedback (id SERIAL PRIMARY KEY, skill_level INTEGER, quality INTEGER,
  comment TEXT, recipe_id INTEGER REFERENCES recipes ON DELETE CASCADE, given_by INTEGER REFERENCES users ON DELETE CASCADE);
 
+CREATE TABLE images (id SERIAL PRIMARY KEY, name TEXT, data BYTE, recipe_id INTEGER REFERENCES recipes ON DELETE CASCADE);
+

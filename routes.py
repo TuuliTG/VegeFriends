@@ -4,6 +4,7 @@ import users
 import recipes
 import security
 import feedback
+import images
 
 
 @app.route("/")
@@ -55,6 +56,7 @@ def add_recipe():
         return render_template("error.html", message="Otsikon pituus täytyy olla vähintään 4 ja enintään 25 merkkiä pitkä")
     instructions = request.form["instructions"]
     uid = users.user_id()
+
     if recipes.create(title, instructions,uid):
         return redirect("/homepage")
     else:
@@ -122,3 +124,16 @@ def new_admin():
     password = request.form["password"]
     users.register(username,password,1)
     return redirect("/")
+
+@app.route("/image/<recipe_id>")
+def show_image(recipe_id):
+    img = images.show(recipe_id)
+    return img
+
+@app.route("/send_image/<id>",methods=["POST"])
+def send_image(id):
+    file = request.files["file"]
+    if (images.save_image(file,id)):
+        return redirect("/recipe/" + id)
+    else:
+        return render_template("error.html",message="Kuvan lisääminen ei onnistunut")
