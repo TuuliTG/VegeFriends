@@ -18,4 +18,5 @@ Toiminnot:
 * Käyttäjä voi antaa reseptille vaikeustason ja laatuarvostelun asteikolla 1-5 (Tehty)
 * Admin-käyttäjä voi poistaa käyttäjätilejä (Tehty)
 * Admin-käyttäjä voi poistaa epäasiallisia reseptejä tai kommentteja
+* Käyttäjä voi muokata lisäämään reseptiä
 * 

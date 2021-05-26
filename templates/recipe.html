@@ -13,7 +13,7 @@
                 
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
             <h5>Luonut: {{ recipe[3] }}</h5>
@@ -22,7 +22,7 @@
     </div>
     <div class="row">
         <div class="col-sm-3"></div>
-        <div class="col-sm-6">
+        <div class="col-sm-5">
             <h4>Ohjeet:</h4>
             <p>
             {% for line in recipe[2].splitlines() %}
@@ -30,14 +30,26 @@
             {% endfor %}
             </p>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
+            {% if has_image %}
             <img src="/image/{{recipe[0]}}" class="img-fluid">
+            {% else %}
+            <img src="/static/frontpage.jpg" class="img-fluid">
+            {% endif %}
+            <br>
             <br>
             {% if session.user_id == recipe[4] %}
+            
             <form action="/send_image/{{recipe[0]}}" method="POST" enctype="multipart/form-data">
-                File: <input type="file" name="file">
-                <p>
-                <input type="submit" value="Lähetä">
+                
+                <div class="custom-file">
+                    <input type="file" name="file" class="custom-file-input" id="fileInput" aria-describedby="fileInputAddon">
+                    <label class="custom-file-label" for="fileInput" data-browse="Etsi...">Valitse tiedosto</label>
+                </div>
+                
+                
+                
+                <button type="submit" value="Valitse" class="btn btn-sm btn-secondary">Valitse</button>
             </form>
             {% endif %}
         </div>
@@ -150,7 +162,14 @@
         return true;
     } 
     
-    
+</script>
+<script>
+    $('#fileInput').on('change',function(){
+        //get the file name
+        var fileName = $(this).val();
+        //replace the "Choose a file" label
+        $(this).next('.custom-file-label').html(fileName);
+    })
 </script>
 {% endif %}
 {% endblock %} 

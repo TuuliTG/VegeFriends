@@ -7,14 +7,21 @@ nav {
     
 }
 
-div {
+
+.background-light {
     background: rgba(83, 134, 71, 0.51);
 }
 
-.background {
-    background: rgba(83, 134, 71, 0.51);
+.background-medium {
+    background: rgba(73, 124, 61, 0.637);
+}
+.background-dark {
+    background: rgba(59, 100, 50, 0.781);
 }
 
+margin {
+    background: rgba(83, 134, 71, 0.51);
+}
 h1 {
     
 }

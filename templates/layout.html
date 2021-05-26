@@ -1,47 +1,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="/static/main.css?version=7">
+<link rel="stylesheet" href="/static/main.css?version=10">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+    <title>VegeFriends - {% block title %}{% endblock %} </title>
+</head>
 
-<title>VegeFriends - {% block title %}{% endblock %} </title>
-<div class="container-fluid">
+<body>
+
+<div class="container-fluid background-light">
     <div>
-        <nav class="navbar navbar-expand-sm">
+        <nav class="navbar navbar-expand-sm navbar-light">
             <a href="/"class="navbar-brand text-white">VegeFriends</a>
-            {% if session.username %}
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="/homepage" class="nav-link text-white">Oma sivu</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/recipes?search=all" class="nav-link text-white">Hae reseptejä</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/logout" class="nav-link text-white">Kirjaudu ulos</a>
-                </li>
-            </ul>
-            
-            {% else %}
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="/" class="nav-link text-white">Kirjaudu sisään</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/signup" class="nav-link text-white">Luo uusi tunnus</a> 
-                </li>
-                {% if session.user_role == 1%}
-                <li class="nav-item">
-                    <a href="/admin" class="nav-link text-white">Admin</a>
-                </li>
-            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {% if session.username %}
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="/homepage" class="nav-link text-white">Oma sivu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/recipes?search=all" class="nav-link text-white">Hae reseptejä</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link text-white">Kirjaudu ulos</a>
+                    </li>
+                </ul>
+                
+                {% else %}
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link text-white">Kirjaudu sisään</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/signup" class="nav-link text-white">Luo uusi tunnus</a> 
+                    </li>
+                    {% if session.user_role == 1%}
+                    <li class="nav-item">
+                        <a href="/admin" class="nav-link text-white">Admin</a>
+                    </li>
+                    {% endif %}
+                </ul>
                 {% endif %}
-            </ul>
+            </div>
             
-            {% endif %}
             
         </nav>
     </div>
-    <div class="card text-center">
+    <div class="card text-center background-medium">
         <div class="card-body">
             <h1 class="card-title">VegeFriends</h1>
         </div>
@@ -55,3 +64,7 @@
    
 </div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+</body>

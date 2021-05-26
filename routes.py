@@ -66,7 +66,8 @@ def add_recipe():
 def show_recipe(id):
     recipe = recipes.get_recipe_by_id(id)
     feedbacks = feedback.get_feedback_by_recipe_id(id)
-    return render_template("recipe.html", recipe=recipe, feedback=feedbacks)
+    has_image = images.recipe_has_image(id)
+    return render_template("recipe.html", recipe=recipe, feedback=feedbacks, has_image=has_image)
 
 
 @app.route("/search",methods=["POST"])
