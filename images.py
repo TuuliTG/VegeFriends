@@ -3,7 +3,7 @@ from flask import make_response
 
 def save_image(file, id):
     name = file.filename
-    if not name.endswith(".jpg"):
+    if not name.endswith((".jpg", ".HEIF")):
         print("Invalid filename")
         return False
     data = file.read()
