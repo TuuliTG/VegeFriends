@@ -7,7 +7,7 @@ def save_image(file, id):
         print("Invalid filename")
         return False
     data = file.read()
-    if len(data) > 100*1024:
+    if len(data) > 2000*1024:
         print("Too big file")
         return False
     if recipe_has_image(id):
