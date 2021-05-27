@@ -6,14 +6,16 @@ Web-sovellus, jossa käyttäjät voivat rekisteröityä ja jakaa kasvisruokarese
 
 Toiminnot:
 * Käyttäjä voi rekisteröityä (Tehty)
+* Admin-käyttäjä voi rekisteröityä (Tehty)
 * Käyttäjälle tulee oma profiilisivu rekisteröimisen jälkeen (Tehty)
 * Käyttäjä voi lisätä reseptejä omalle sivulleen (Tehty)
 * Käyttäjä voi etsiä muiden lisäämiä reseptejä hakusanoilla (Tehty)
 * Reseptillä on oma sivu, jonne pääsee klikkaamalla reseptin otsikkoa (omalta sivulta tai reseptien listaussivulta) (Tehty)
 * Käyttäjä voi etsiä toisia käyttäjiä ja käydä heidän sivuillaan 
-* Reseptiin voi lisätä kuvan
+* Reseptiin voi lisätä kuvan (Tehty)
+* Oman reseptin kuvan voi vaihtaa (Tehty)
 * Käyttäjä voi poistaa itse lisäämiään reseptejä(Tehty)
-* Käyttäjä voi tallentaa muiden lisäämiä reseptejä suosikkeihin
+* Käyttäjä voi tallentaa muiden lisäämiä reseptejä suosikkeihin (Tehty)
 * Käyttäjä voi kommentoida reseptejä (Tehty)
 * Käyttäjä voi antaa reseptille vaikeustason ja laatuarvostelun asteikolla 1-5 (Tehty)
 * Admin-käyttäjä voi poistaa käyttäjätilejä (Tehty)
