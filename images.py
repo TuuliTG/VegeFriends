@@ -3,8 +3,8 @@ from flask import make_response
 
 def save_image(file, id):
     name = file.filename
-    if not name.endswith((".jpg", ".HEIF")):
-        print("Invalid filename")
+    if not name.endswith((".jpg", ".HEIC")):
+        print("Invalid filename" + name)
         return False
     data = file.read()
     if len(data) > 2000*1024:
