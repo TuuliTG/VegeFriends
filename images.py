@@ -45,7 +45,6 @@ def recipe_has_image(id):
     sql = "SELECT * FROM images WHERE recipe_id=:id"
     result = db.session.execute(sql, {"id":id})
     row = result.fetchone()
-    print(row)
     if row is None:
         return False
     return True

@@ -5,6 +5,7 @@ import recipes
 import security
 import feedback
 import images
+import likes
 
 
 @app.route("/")
@@ -64,10 +65,14 @@ def add_recipe():
 
 @app.route("/recipe/<id>")
 def show_recipe(id):
+    uid = users.user_id()
     recipe = recipes.get_recipe_by_id(id)
+    count_likes = likes.count_likes(id)
+    user_likes_recipe = likes.user_likes_recipe(uid,id)
     feedbacks = feedback.get_feedback_by_recipe_id(id)
     has_image = images.recipe_has_image(id)
-    return render_template("recipe.html", recipe=recipe, feedback=feedbacks, has_image=has_image)
+
+    return render_template("recipe.html", recipe=recipe, feedback=feedbacks, has_image=has_image, likes=user_likes_recipe, countLikes=count_likes)
 
 
 @app.route("/search",methods=["POST"])
@@ -138,3 +143,16 @@ def send_image(id):
         return redirect("/recipe/" + id)
     else:
         return render_template("error.html",message="Kuvan lisääminen ei onnistunut")
+
+
+@app.route("/like/<recipe_id>", methods=["POST"])
+def like(recipe_id):
+    user_id = users.user_id()
+    likes.like(user_id,recipe_id)
+    return redirect("/recipe/"+recipe_id)
+
+@app.route("/dislike/<recipe_id>",methods=["POST"])
+def dislike(recipe_id):
+    user_id = users.user_id()
+    likes.dislike(user_id,recipe_id)
+    return redirect("/recipe/"+recipe_id)
