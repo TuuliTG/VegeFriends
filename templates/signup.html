@@ -1,14 +1,23 @@
 {% extends "layout.html" %}
 {% block title %} Sign up {% endblock %}
 {% block content %}
-<h2>Luo uusi tunnus</h2>
-<form action="/newuser" method="POST" onsubmit="return check(this)">
-Tunnus:<input type="text" name="username">
-<p>
-Salasana: <input type="password" name="password">
-<p>
-<input type="submit" value="Luo tunnus">
-</form>
+<h2 class="text-center">Luo uusi tunnus</h2>
+<div class="container-sm">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <form class="m-2" action="/newuser" method="POST" onsubmit="return check(this)">
+            Tunnus:<input class= "form-control" type="text" name="username" placeholder="Käyttäjätunnus">
+            <p>
+            Salasana: <input class="form-control" type="password" name="password" placeholder="Salasana">
+            <p>
+            <button class="btn btn-primary" type="submit" value="Luo tunnus">Luo tunnus</button>
+            </form>
+    </div>
+
+</div>
+<div>
+    <img src="/static/frontpage.jpg" class="img-fluid">
+</div>
 
 <script>
     
