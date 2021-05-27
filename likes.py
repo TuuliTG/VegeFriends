@@ -25,3 +25,9 @@ def count_likes(recipe_id):
     result = db.session.execute(sql, {"recipe_id":recipe_id})
     count = result.fetchone()[0]
     return count
+
+def list_liked_by_user(id):
+    sql = "SELECT R.id,R.title FROM likes L, recipes R WHERE L.user_id=:id  AND L.recipe_id=R.id"
+    result = db.session.execute(sql, {"id":id})
+    list = result.fetchall()
+    return list

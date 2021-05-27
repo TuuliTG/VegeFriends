@@ -32,7 +32,20 @@
         </div>
         <div class="col-sm-2"></div>
         <div class="col-sm-5">
-            <p>Tallennetut reseptit:</p>
+            <h5>Tykätyt reseptit:</h5>
+            <table>
+                <tbody>
+                    {% for like in likes %}
+                    <tr>
+                        <td>
+                            <div>
+                                <a href="/recipe/{{like[0]}}" class="text-white">{{ like[1] }}</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

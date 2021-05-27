@@ -27,8 +27,10 @@ def signup():
 
 @app.route("/homepage")
 def homepage():
-    list = recipes.get_all_owned_by_user(users.user_id())
-    return render_template("homepage.html", recipes=list)
+    uid = users.user_id()
+    list = recipes.get_all_owned_by_user(uid)
+    favourites = likes.list_liked_by_user(uid)
+    return render_template("homepage.html", recipes=list, likes=favourites)
 
 @app.route("/logout")
 def logout():

@@ -3,11 +3,6 @@ body {
     background: rgba(83, 134, 71, 0.51));
 }
 
-nav {
-    
-}
-
-
 .background-light {
     background: rgba(83, 134, 71, 0.51);
 }
@@ -19,12 +14,10 @@ nav {
     background: rgba(59, 100, 50, 0.781);
 }
 
-margin {
+.margin {
     background: rgba(83, 134, 71, 0.51);
 }
-h1 {
-    
-}
+
 
 table {
     border-color: black;
