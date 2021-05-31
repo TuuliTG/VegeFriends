@@ -72,6 +72,8 @@ def show_recipe(id):
     count_likes = likes.count_likes(id)
     user_likes_recipe = likes.user_likes_recipe(uid,id)
     feedbacks = feedback.get_feedback_by_recipe_id(id)
+    for fb in feedbacks:
+        print(fb.comment)
     has_image = images.recipe_has_image(id)
 
     return render_template("recipe.html", recipe=recipe, feedback=feedbacks, has_image=has_image, likes=user_likes_recipe, countLikes=count_likes)

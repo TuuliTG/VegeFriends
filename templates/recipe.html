@@ -6,7 +6,7 @@
     <div class="row mt-3">
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
-            <h3>{{ recipe[1] }}</h3>
+            <h2>{{ recipe[1] }}</h2>
         </div>
         <div class="col-sm-3">
            
@@ -34,7 +34,7 @@
     <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-5">
-            <h4>Ohjeet:</h4>
+            <h3>Ohjeet:</h3>
             <p>
             {% for line in recipe[2].splitlines() %}
             {{line}}<br>
@@ -73,34 +73,57 @@
             {% if session.user_id != recipe[4]%}
             <h4>Anna palautetta:</h4>
             <form action="/feedback/{{recipe[0]}}" method="POST" >
-                <p>Vaikeustaso:</p>
-                <input type="radio" value="1" id=skill_level name="skill_level">
-                <label for="1">1</label>
-                <input type="radio" value="2" name="skill_level">
-                <label for="1">2</label>
-                <input type="radio" value="3" name="skill_level">
-                <label for="1">3</label>
-                <input type="radio" value="4" name="skill_level">
-                <label for="1">4</label>
-                <input type="radio" value="5" name="skill_level">
-                <label for="1">5</label>
+                <label class="mt-2" for="skill">Vaikeustaso:</label>
                 <br>
-                <p>Kuinka hyvää ruoka oli?</p>
-                <input type="radio" value="1" name="quality">
-                <label for="1">1</label>
-                <input type="radio" value="2" name="quality">
-                <label for="1">2</label>
-                <input type="radio" value="3" name="quality">
-                <label for="1">3</label>
-                <input type="radio" value="4" name="quality">
-                <label for="1">4</label>
-                <input type="radio" value="5" name="quality">
-                <label for="1">5</label>
+                <div class="form-check form-check-inline" id="skill">
+                    <input class="form-check-input" type="radio" value="1" id=skill_level name="skill_level">
+                    <label class="form-check-label" for="1">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="2" name="skill_level">
+                    <label class="form-check-label" for="1">2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="3" name="skill_level">
+                    <label class="form-check-label" for="1">3</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="4" name="skill_level">
+                    <label class="form-check-label" for="1">4</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="5" name="skill_level">
+                    <label class="form-check-label" for="1">5</label>
+                </div>
                 <br>
-                <p>Kommentoi:</p>
-                <textarea rows="8" cols="30" name="comment"></textarea>
+                <label class="mt-2" for="quality">Kuinka hyvää ruoka oli?</label>
                 <br>
-                <input type="submit" id="btn" value="Lähetä">
+                <div class="form-check form-check-inline" id="quality">
+                    <input class="form-check-input" type="radio" value="1" name="quality">
+                    <label class="form-check-label" for="1">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="2" name="quality">
+                    <label class="form-check-label" for="1">2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="3" name="quality">
+                    <label class="form-check-label" for="1">3</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="4" name="quality">
+                    <label class="form-check-label" for="1">4</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="5" name="quality">
+                    <label class="form-check-label" for="1">5</label>
+                </div>
+                <br>
+                <label class="mt-2" for="comment">Kommentoi:</label>
+                <br>
+                <textarea rows="8" cols="30" name="comment" id="comment"></textarea>
+                <br>
+                <button type="submit" class="btn btn-light m-2" id="btn" value="Lähetä">Lähetä palaute</button>
             </form>
             {% endif %}
         </div>
@@ -109,10 +132,9 @@
             {% if not feedback %}
             <p>ei vielä palautteita</p>
             {% else %}
-            <p>Keskimääräinen vaikeustaso:{{ feedback[0].skill_level }}</p>
+            <p>Keskimääräinen vaikeustaso: {{ feedback[0].skill_level }}</p>
             <p>Käyttäjät pitivät ruuasta keskimäärin: {{ feedback[0].quality }}</p>
-            <p>Kommentit:</p>
-            <table>
+            <table class="table table-borderless">
                 <thead>
                     <tr>
                         <th>Kommentit</th>
@@ -121,7 +143,7 @@
                 </thead>
                 <tbody>
                     {% for fb in feedback %}
-                    {% if not fb.comment == none %} 
+                    {% if not fb.comment == none and fb.comment|length %} 
                     <tr>
                         <td>{{ fb.comment }} </td>
                         <td>{{ fb.written_by }}</td>

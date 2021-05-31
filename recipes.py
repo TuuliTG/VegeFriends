@@ -33,7 +33,7 @@ def search_by_text(text):
     
     search_text = "%"+text+"%"
    
-    sql = "SELECT R.id, R.title FROM recipes R WHERE title LIKE (:search) OR instructions LIKE (:search)"
+    sql = "SELECT R.id, R.title FROM recipes R WHERE title ILIKE (:search) OR instructions LIKE (:search)"
     result = db.session.execute(sql, {"search":search_text})
     return result.fetchall()
 
