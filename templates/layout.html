@@ -28,6 +28,11 @@
                     <li class="nav-item">
                         <a href="/logout" class="nav-link text-white">Kirjaudu ulos</a>
                     </li>
+                    {% if session.user_role == 1%}
+                    <li class="nav-item">
+                        <a href="/admin" class="nav-link text-white">Admin</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 
                 {% else %}
@@ -38,11 +43,7 @@
                     <li class="nav-item">
                         <a href="/signup" class="nav-link text-white">Luo uusi tunnus</a> 
                     </li>
-                    {% if session.user_role == 1%}
-                    <li class="nav-item">
-                        <a href="/admin" class="nav-link text-white">Admin</a>
-                    </li>
-                    {% endif %}
+                    
                 </ul>
                 {% endif %}
             </div>
