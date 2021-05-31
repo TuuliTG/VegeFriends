@@ -4,9 +4,12 @@ Web-sovellus, jossa käyttäjät voivat rekisteröityä ja jakaa kasvisruokarese
 
 [Ohjelma herokussa](https://vegefriends.herokuapp.com/)
 
+
+
 Toiminnot:
 * Käyttäjä voi rekisteröityä (Tehty)
 * Admin-käyttäjä voi rekisteröityä (Tehty)
+    * Admin-tilin voi luoda osoitteessa /create_admin
 * Käyttäjälle tulee oma profiilisivu rekisteröimisen jälkeen (Tehty)
 * Käyttäjä voi lisätä reseptejä omalle sivulleen (Tehty)
 * Käyttäjä voi etsiä muiden lisäämiä reseptejä hakusanoilla (Tehty)
