@@ -2,6 +2,7 @@ from db import db
 from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 
+
 def login(username, password):
     sql = "SELECT password, id, username, role FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username":username})
@@ -22,10 +23,12 @@ def login(username, password):
         else:
             return False
 
+
 def logout():
     del session["user_id"]
     del session["username"]
     del session["user_role"]
+
 
 def register(username, password, role):
     hash_value = generate_password_hash(password)
@@ -45,16 +48,19 @@ def register(username, password, role):
 def user_id():
     return session.get("user_id",0)
 
+
 def get_all_users():
     sql = "SELECT U.id, U.username, U.role FROM users U"
     result = db.session.execute(sql)
     return result.fetchall()
+
 
 def is_required_role(role):
     if role > session.get("user_role", 0):
         return False
     else:
         return True
+
 
 def delete_user(id):
     sql = "DELETE FROM users WHERE id=:id"

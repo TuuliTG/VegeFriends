@@ -1,14 +1,15 @@
 from db import db
 from flask import make_response
 
+
 def save_image(file, id):
     name = file.filename
     if not name.endswith((".jpg", ".HEIC", "jpeg")):
-        print("Invalid filename" + name)
+        print("Virheellinen tiedostomuoto" + name)
         return False
     data = file.read()
     if len(data) > 20000*1024:
-        print("Too big file")
+        print("Liian suuri tiedosto")
         return False
     if recipe_has_image(id):
         try:
@@ -28,6 +29,7 @@ def save_image(file, id):
             return False
     return True
 
+
 def show(id):
     sql = "SELECT data FROM images WHERE recipe_id=:id"
     result = db.session.execute(sql, {"id":id})
@@ -40,6 +42,7 @@ def show(id):
         response = make_response(bytes(data))
         response.headers.set("Content-Type","image/jpeg")
         return response
+
 
 def recipe_has_image(id):
     sql = "SELECT * FROM images WHERE recipe_id=:id"

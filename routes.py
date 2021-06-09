@@ -2,7 +2,7 @@ from app import app
 from flask import redirect, render_template, request, session
 import users
 import recipes
-import security
+import validation
 import feedback
 import images
 import likes
@@ -11,6 +11,7 @@ import likes
 @app.route("/")
 def index():
     return render_template("index.html")
+
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -21,9 +22,11 @@ def login():
     else:
         return render_template("error.html", message="Väärä tunnus tai salasana")
     
+
 @app.route("/signup")
 def signup():
     return render_template("signup.html")
+
 
 @app.route("/homepage")
 def homepage():
@@ -32,30 +35,31 @@ def homepage():
     favourites = likes.list_liked_by_user(uid)
     return render_template("homepage.html", recipes=list, likes=favourites)
 
+
 @app.route("/logout")
 def logout():
     users.logout()
     return redirect("/")
 
+
 @app.route("/newuser", methods=["POST"])
 def new_user():
     username = request.form["username"]
     password = request.form["password"]
-    
-    if not security.is_valid(username, 4,20):
+    if not validation.is_valid(username, 4,20):
         return render_template("error.html",message="Käyttäjänimen täytyy olla vähintään 4 ja enintään 20 merkkiä pitkä")
-    if not security.is_valid(password, 6, 20):
+    if not validation.is_valid(password, 6, 20):
         return render_template("error.html",message="Salasanan pitää olla vähintään 6 ja enintään 20 merkkiä pitkä") 
     if users.register(username,password,0):
         return redirect("/homepage")
     else:
         return render_template("error.html",message="Rekisteröinti ei onnistunut")
 
+
 @app.route("/addrecipe", methods=["POST"])
 def add_recipe():
-    
     title = request.form["title"]
-    if not security.is_valid(title, 4, 25):
+    if not validation.is_valid(title, 4, 25):
         return render_template("error.html", message="Otsikon pituus täytyy olla vähintään 4 ja enintään 25 merkkiä pitkä")
     instructions = request.form["instructions"]
     uid = users.user_id()
@@ -64,6 +68,7 @@ def add_recipe():
         return redirect("/homepage")
     else:
         return render_template("error.html",message="Reseptin lisääminen ei onnistunut")
+
 
 @app.route("/recipe/<id>")
 def show_recipe(id):
@@ -81,20 +86,19 @@ def show_recipe(id):
 
 @app.route("/search",methods=["POST"])
 def search():
-    text = request.form["search"]
-    
+    text = request.form["search"] 
     return redirect("recipes"+"?search="+text)
+
 
 @app.route("/recipes")
 def show_all_recipes():
-    
     search = request.args.get("search")
-    if search == "all":
-        
+    if search == "all":        
         list = recipes.get_all()
     else:
         list = recipes.search_by_text(search)
     return render_template("recipes.html", recipes=list)
+
 
 @app.route("/delete/<id>",methods=["POST"])
 def delete_recipe(id):
@@ -110,10 +114,12 @@ def admin_page():
     else:
         return render_template("error.html",message="Sinulla ei ole oikeuksia tälle sivulle")
 
+
 @app.route("/deleteuser/<id>", methods=["POST"])
 def delete_user(id):
     users.delete_user(id)
     return redirect("/admin")
+
 
 @app.route("/feedback/<id>",methods=["POST"])
 def give_feedback(id):
@@ -124,9 +130,11 @@ def give_feedback(id):
     feedback.add_feedback(skill_level,quality,comment,given_by,id)
     return redirect("/recipe/"+id)
 
+
 @app.route("/create_admin")
 def show_create_admin_page():
     return render_template("create_admin.html")
+
 
 @app.route("/newadmin",methods=["POST"])
 def new_admin():
@@ -135,10 +143,12 @@ def new_admin():
     users.register(username,password,1)
     return redirect("/")
 
+
 @app.route("/image/<recipe_id>")
 def show_image(recipe_id):
     img = images.show(recipe_id)
     return img
+
 
 @app.route("/send_image/<id>",methods=["POST"])
 def send_image(id):
@@ -154,6 +164,7 @@ def like(recipe_id):
     user_id = users.user_id()
     likes.like(user_id,recipe_id)
     return redirect("/recipe/"+recipe_id)
+
 
 @app.route("/dislike/<recipe_id>",methods=["POST"])
 def dislike(recipe_id):
