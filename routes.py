@@ -58,6 +58,7 @@ def new_user():
 
 @app.route("/addrecipe", methods=["POST"])
 def add_recipe():
+    check_CSRF_token()
     title = request.form["title"]
     if not validation.is_valid(title, 4, 25):
         return render_template("error.html", message="Otsikon pituus täytyy olla vähintään 4 ja enintään 25 merkkiä pitkä")
@@ -86,6 +87,7 @@ def show_recipe(id):
 
 @app.route("/search",methods=["POST"])
 def search():
+    check_CSRF_token()
     text = request.form["search"] 
     return redirect("recipes"+"?search="+text)
 
@@ -102,6 +104,7 @@ def show_all_recipes():
 
 @app.route("/delete/<id>",methods=["POST"])
 def delete_recipe(id):
+    check_CSRF_token()
     recipes.delete_by_id(id)
     return redirect("/homepage")
 
@@ -117,12 +120,14 @@ def admin_page():
 
 @app.route("/deleteuser/<id>", methods=["POST"])
 def delete_user(id):
+    check_CSRF_token()
     users.delete_user(id)
     return redirect("/admin")
 
 
 @app.route("/feedback/<id>",methods=["POST"])
 def give_feedback(id):
+    check_CSRF_token()
     skill_level = int(request.form["skill_level"])
     quality = int(request.form["quality"])
     comment = request.form["comment"]
@@ -171,3 +176,8 @@ def dislike(recipe_id):
     user_id = users.user_id()
     likes.dislike(user_id,recipe_id)
     return redirect("/recipe/"+recipe_id)
+
+
+def check_CSRF_token():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
