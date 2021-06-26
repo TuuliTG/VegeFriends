@@ -123,10 +123,13 @@ def admin_page():
 @app.route("/deleteuser/<id>", methods=["POST"])
 def delete_user(id):
     check_CSRF_token()
+    uid = users.user_id()
+    print(id)
+    print(uid)
     users.delete_user(id)
-    if id == session.get("user_id",0):
+    if id == uid:
         print("käyttäjä poisti itsensä")
-        logout()
+        users.logout()
         return redirect("/")
     return redirect("/admin")
 
