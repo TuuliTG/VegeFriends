@@ -124,6 +124,10 @@ def admin_page():
 def delete_user(id):
     check_CSRF_token()
     users.delete_user(id)
+    if id == session.get("user_id",0):
+        print("käyttäjä poisti itsensä")
+        logout()
+        return redirect("/")
     return redirect("/admin")
 
 
