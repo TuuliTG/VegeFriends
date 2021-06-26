@@ -60,6 +60,8 @@ def is_required_role(role):
 
 
 def delete_user(id):
+    if id == session.get("user_id",0):
+        logout()
     sql = "DELETE FROM users WHERE id=:id"
     result = db.session.execute(sql, {"id":id})
     db.session.commit()
