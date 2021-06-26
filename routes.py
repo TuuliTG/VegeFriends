@@ -63,6 +63,8 @@ def add_recipe():
     if not validation.is_valid(title, 4, 25):
         return render_template("error.html", message="Otsikon pituus täytyy olla vähintään 4 ja enintään 25 merkkiä pitkä")
     instructions = request.form["instructions"]
+    if not validation.is_valid(instructions, 15, 1000):
+        return render_template("error.html", message="Ohjeen pitää olla vähintään 15 ja enintään 1000 merkkiä pitkä")
     uid = users.user_id()
 
     if recipes.create(title, instructions,uid):
