@@ -23,7 +23,9 @@
                 <tr>
                     <td>{{ user.username }}</td>
                     <td>{{ user.id }}</td>
-                    <td><form action="deleteuser/{{user.id}}" method="POST"><input type="submit" value="Poista"></form></td>
+                    <td><form action="deleteuser/{{user.id}}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                        <input type="submit" value="Poista"></form></td>
                 </tr>
                 {% endfor %}
             </tbody>

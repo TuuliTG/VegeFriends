@@ -22,6 +22,7 @@
                             </div>
                         </td>
                         <td><div><form action="/delete/{{recipe[0]}}" method="POST" >
+                            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                             <button class="btn btn-light" type="submit" value="poista">Poista</button></form>
                             </div> 
                         </td>
@@ -70,6 +71,7 @@
                 <br>
                 <textarea rows="8" cols="30" name="instructions"></textarea>
                 <br>
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 <button type="submit" value="Tallenna" class="btn btn-light mt-3 text-center">Tallenna</button>
             </form>
         </div>

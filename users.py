@@ -10,15 +10,11 @@ def login(username, password):
     if user == None:
         return False
     else:
-        if user[3] == 1 and user[0] == password:
-            session["user_id"] = user[1]
-            session["username"] = user[2]
-            session["user_role"] = user[3]
-            return True
         if check_password_hash(user[0],password):
             session["user_id"] = user[1]
             session["username"] = user[2]
             session["user_role"] = user[3]
+            session["csrf_token"] = secrets.token_hex(16)
             return True
         else:
             return False

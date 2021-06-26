@@ -123,6 +123,7 @@
                 <br>
                 <textarea rows="8" cols="30" name="comment" id="comment"></textarea>
                 <br>
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 <button type="submit" class="btn btn-light m-2" id="btn" value="Lähetä">Lähetä palaute</button>
             </form>
             {% endif %}
