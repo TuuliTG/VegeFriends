@@ -124,11 +124,8 @@ def admin_page():
 def delete_user(id):
     check_CSRF_token()
     uid = users.user_id()
-    print(id)
-    print(uid)
     users.delete_user(id)
-    if id == uid:
-        print("käyttäjä poisti itsensä")
+    if int(id) == uid:
         users.logout()
         return redirect("/")
     return redirect("/admin")
