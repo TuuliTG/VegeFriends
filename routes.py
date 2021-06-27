@@ -137,6 +137,8 @@ def give_feedback(id):
     skill_level = int(request.form["skill_level"])
     quality = int(request.form["quality"])
     comment = request.form["comment"]
+    if not validation.is_valid(comment, 4, 200):
+        return render_template("error.html", message="Kommentin pituus täytyy olla vähintään 4 ja enintään 200 merkkiä pitkä")
     given_by = users.user_id()
     feedback.add_feedback(skill_level,quality,comment,given_by,id)
     return redirect("/recipe/"+id)
